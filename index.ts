@@ -39,7 +39,6 @@ const wordLength = randomNumber({ min: 2, max: 10});
 const letters: string[] = [];
 for(let i = 0; i < wordLength; i++) {
   const randomLetterTypeValue = Math.round(randomNumber({min: 0, max: 1, integer: false}));
-  console.info('randomLetterTypeValue', randomLetterTypeValue);
   const randomLetterType= randomLetterTypeValue === 1 ? LETTERTYPE_CONSONANT : LETTERTYPE_VOWEL;
 
   let randomLetter: string;
