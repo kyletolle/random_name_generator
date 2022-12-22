@@ -32,13 +32,13 @@ const vowels = [
   "y",
 ];
 
-const generateRandomWord = () => {
+const generateRandomName = () => {
 const LETTERTYPE_CONSONANT = 'consonant';
 const LETTERTYPE_VOWEL = 'vowel';
 
-const wordLength = randomNumber({ min: 2, max: 10});
+const nameLength = randomNumber({ min: 2, max: 10});
 const letters: string[] = [];
-for(let i = 0; i < wordLength; i++) {
+for(let i = 0; i < nameLength; i++) {
   const randomLetterTypeValue = Math.round(randomNumber({min: 0, max: 1, integer: false}));
   const randomLetterType= randomLetterTypeValue === 1 ? LETTERTYPE_CONSONANT : LETTERTYPE_VOWEL;
 
@@ -54,10 +54,10 @@ for(let i = 0; i < wordLength; i++) {
   letters.push(randomLetter);
 }
 letters[0] = letters[0].toUpperCase();
-const randomWord = letters.join('');
-return randomWord;
+const randomName = letters.join('');
+return randomName;
 }
 
 
-export default generateRandomWord;
+export default generateRandomName;
 

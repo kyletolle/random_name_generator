@@ -1,5 +1,5 @@
 import { Head } from "$fresh/runtime.ts";
-import generateRandomWord from "../generateRandomWord.ts";
+import generateSimpleRandomName from "../strategies/simple.ts";
 
 const bigWord = "font-bold text(center 5xl black)";
 const sectionHeader = "font-bold text(left 2xl gray-500)";
@@ -14,7 +14,7 @@ export default function Home() {
           Here's your random name!
         </p>
         <h1 class={sectionHeader}>Simple Strategy</h1>
-        <h2 class={bigWord}>{generateRandomWord()}</h2>
+        <h2 class={bigWord}>{generateSimpleRandomName()}</h2>
         <hr />
       </div>
     </>
