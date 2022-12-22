@@ -1,36 +1,5 @@
-import { randomNumber } from "https://deno.land/x/random_number/mod.ts";
-
-const consonants = [
-  "b",
-  "c",
-  "d",
-  "f",
-  "g",
-  "h",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "v",
-  "w",
-  "x",
-  "z",
-];
-
-const vowels = [
-  "a",
-  "e",
-  "i",
-  "o",
-  "u",
-  "y",
-];
+import { randomNumber } from "https://deno.land/x/random_number@2.0.0/mod.ts";
+import { consonants, vowels } from "../constants.ts";
 
 const generateRandomName = () => {
 const LETTERTYPE_CONSONANT = 'consonant';
