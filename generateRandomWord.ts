@@ -32,6 +32,7 @@ const vowels = [
   "y",
 ];
 
+const generateRandomWord = () => {
 const LETTERTYPE_CONSONANT = 'consonant';
 const LETTERTYPE_VOWEL = 'vowel';
 
@@ -54,6 +55,9 @@ for(let i = 0; i < wordLength; i++) {
 }
 letters[0] = letters[0].toUpperCase();
 const randomWord = letters.join('');
+return randomWord;
+}
 
-console.info(`Random word: ${randomWord}`);
+
+export default generateRandomWord;
 
