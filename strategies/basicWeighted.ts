@@ -35,6 +35,11 @@ const weightedTowardVowel: Weights = {
   [LETTERTYPE_VOWEL]: { start: 6, end: 100 }
 }
 
+// TODO: Create a simple weighted range, where you can specify the name as a key
+// and the value is how long the range should be, then make a weighted range
+// factory that can take in one of the simple ranges and make a weighted range
+// from that with the appropriate start and ends.
+
 const generateWeightedLetter = (letterTypeWeights: Weights) => {
   const random = randomNumber({ min: 1, max: 100 });
   console.info('What is random number?', random);
