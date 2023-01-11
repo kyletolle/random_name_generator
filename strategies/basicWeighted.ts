@@ -1,7 +1,7 @@
 import { randomNumber } from "https://deno.land/x/random_number@2.0.0/mod.ts";
 import { vowels, LetterTypes } from "../constants.ts";
 import type { ISimpleLetterTypeWeights, IFullLetterTypeWeights } from "../interfaces.ts";
-import { convertSimpleToFullLetterTypeWeightedRange, generateWeightedLetterFromLetterTypeWeights } from "../weights/index.ts";
+import { convertSimpleToFullLetterTypeWeightedRange, generateRandomEquallyWeightedLetterFromLetterTypeWeights } from "../weights/index.ts";
 
 const generateRandomName = () => {
   const { consonant, vowel } = LetterTypes;
@@ -19,7 +19,7 @@ const generateRandomName = () => {
   const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
 
   const getInitialLetterFromLetterType = () => {
-    const randomInitialLetter = generateWeightedLetterFromLetterTypeWeights(letterTypeWeightedTowardConsonant).toUpperCase()
+    const randomInitialLetter = generateRandomEquallyWeightedLetterFromLetterTypeWeights(letterTypeWeightedTowardConsonant).toUpperCase()
     return randomInitialLetter;
   }
 
@@ -28,7 +28,7 @@ const generateRandomName = () => {
   letters[0] = getInitialLetterFromLetterType();
   let nextLetterTypeWeights: IFullLetterTypeWeights = letterTypeWeightedTowardVowel;
   for(let i = 1; i < nameLength; i++) {
-    const randomLetter = generateWeightedLetterFromLetterTypeWeights(nextLetterTypeWeights);
+    const randomLetter = generateRandomEquallyWeightedLetterFromLetterTypeWeights(nextLetterTypeWeights);
     letters.push(randomLetter);
     const isLetterAVowel = vowels.includes(randomLetter);
     nextLetterTypeWeights = isLetterAVowel ? letterTypeWeightedTowardConsonant : letterTypeWeightedTowardVowel;

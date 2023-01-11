@@ -35,16 +35,16 @@ const generateWeightedRangeFromWeights = (weights: IGenericWeights): INamedWeigh
   return { name: chosenName, range: chosenRange };
 }
 
-const generateWeightedLetterFromLetterTypeWeights = (letterTypeWeights: IFullLetterTypeWeights) => {
+const generateRandomEquallyWeightedLetterFromLetterTypeWeights = (letterTypeWeights: IFullLetterTypeWeights) => {
   const namedWeightedRange = generateWeightedRangeFromWeights(letterTypeWeights as unknown as IGenericWeights);
 
   const letterType = namedWeightedRange.name as TLetterTypes;
 
-  const randomLetter = getRandomLetterFromLetterType(letterType);
+  const randomLetter = getRandomEquallyWeightedLetterFromLetterType(letterType);
   return randomLetter;
 }
 
-const getRandomLetterFromLetterType = (letterType: TLetterTypes) => {
+const getRandomEquallyWeightedLetterFromLetterType = (letterType: TLetterTypes) => {
   switch (letterType) {
     case consonant:
       return consonants[randomNumber({min: 0, max: consonants.length - 1})]
@@ -73,4 +73,4 @@ const convertSimpleToFullLetterTypeWeightedRange = (simpleWeights: ISimpleLetter
 }
 
 
-export { generateWeightedLetterFromLetterTypeWeights, getRandomLetterFromLetterType, convertSimpleToFullLetterTypeWeightedRange };
+export { generateRandomEquallyWeightedLetterFromLetterTypeWeights, getRandomEquallyWeightedLetterFromLetterType, convertSimpleToFullLetterTypeWeightedRange };

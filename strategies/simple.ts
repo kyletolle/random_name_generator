@@ -1,7 +1,7 @@
 import { randomNumber } from "https://deno.land/x/random_number@2.0.0/mod.ts";
 import { LetterTypes } from "../constants.ts";
 import type { ISimpleLetterTypeWeights, IFullLetterTypeWeights } from "../interfaces.ts";
-import { convertSimpleToFullLetterTypeWeightedRange, generateWeightedLetterFromLetterTypeWeights } from "../weights/index.ts";
+import { convertSimpleToFullLetterTypeWeightedRange, generateRandomEquallyWeightedLetterFromLetterTypeWeights } from "../weights/index.ts";
 
 const generateRandomName = () => {
   const { consonant, vowel } = LetterTypes;
@@ -16,7 +16,7 @@ const generateRandomName = () => {
   const letters: string[] = [];
 
   for(let i = 0; i < nameLength; i++) {
-    const randomLetter = generateWeightedLetterFromLetterTypeWeights(letterTypeWeightedEqually);
+    const randomLetter = generateRandomEquallyWeightedLetterFromLetterTypeWeights(letterTypeWeightedEqually);
     letters.push(randomLetter);
   }
 
