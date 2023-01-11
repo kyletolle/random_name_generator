@@ -15,14 +15,14 @@ const getRandomLetter = (letterType: LETTER_TYPES) => {
   }
 }
 
-interface IWeightedRange {
+interface IFullWeightedRange {
   start: number;
   end: number;
 }
 
 interface IFullWeights {
- [LETTERTYPE_CONSONANT]: IWeightedRange;
- [LETTERTYPE_VOWEL]: IWeightedRange
+ [LETTERTYPE_CONSONANT]: IFullWeightedRange;
+ [LETTERTYPE_VOWEL]: IFullWeightedRange
 }
 
 const weightedTowardConsonant: IFullWeights = {
