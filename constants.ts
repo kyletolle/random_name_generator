@@ -1,3 +1,14 @@
+const CONSONANT = 'consonant';
+const VOWEL = 'vowel';
+type TConsonant = typeof CONSONANT;
+type TVowel = typeof VOWEL;
+type TLetterTypes = TConsonant | TVowel;
+
+const LetterTypes: { [CONSONANT]: TConsonant, [VOWEL]: TVowel } = {
+  [CONSONANT]: CONSONANT as TConsonant,
+  [VOWEL]: VOWEL as TVowel,
+}
+
 const consonants = [
   "b",
   "c",
@@ -30,4 +41,5 @@ const vowels = [
   "y",
 ];
 
-export { consonants, vowels };
+export { consonants, vowels, LetterTypes, CONSONANT, VOWEL };
+export type { TLetterTypes, TConsonant, TVowel };

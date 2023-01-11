@@ -1,14 +1,13 @@
 import { randomNumber } from "https://deno.land/x/random_number@2.0.0/mod.ts";
-import { consonants, vowels } from "../constants.ts";
+import { consonants, vowels, LetterTypes } from "../constants.ts";
+import type { TLetterTypes } from "../constants.ts";
 
 const generateRandomName = () => {
-  const LETTERTYPE_CONSONANT = 'consonant';
-  const LETTERTYPE_VOWEL = 'vowel';
-  type LETTER_TYPES = typeof LETTERTYPE_CONSONANT | typeof LETTERTYPE_VOWEL;
+  const { consonant, vowel } = LetterTypes;
 
-  const getRandomLetterFromLetterType = (letterType: LETTER_TYPES) => {
+  const getRandomLetterFromLetterType = (letterType: TLetterTypes) => {
     switch (letterType) {
-      case LETTERTYPE_CONSONANT:
+      case consonant:
         return consonants[randomNumber({min: 0, max: consonants.length - 1})]
       default:
         return vowels[randomNumber({min: 0, max: vowels.length - 1})]
@@ -20,33 +19,33 @@ const generateRandomName = () => {
   }
 
   interface ISimpleLetterTypeWeights {
-    [LETTERTYPE_CONSONANT]: ISimpleWeightedRange;
-    [LETTERTYPE_VOWEL]: ISimpleWeightedRange;
+    [consonant]: ISimpleWeightedRange;
+    [vowel]: ISimpleWeightedRange;
   }
 
   const simpleLetterTypeWeightedTowardConsonant: ISimpleLetterTypeWeights = {
-    [LETTERTYPE_CONSONANT]: { length: 95 },
-    [LETTERTYPE_VOWEL]: { length: 5 },
+    [consonant]: { length: 95 },
+    [vowel]: { length: 5 },
   };
 
   const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
-    [LETTERTYPE_CONSONANT]: { length: 5 },
-    [LETTERTYPE_VOWEL]: { length: 95 },
+    [consonant]: { length: 5 },
+    [vowel]: { length: 95 },
   }
 
   const convertSimpleToFullLetterTypeWeightedRange = (simpleWeights: ISimpleLetterTypeWeights): IFullLetterTypeWeights => {
     let lastLength = 0;
     const fullWeights: IFullLetterTypeWeights = {
-      [LETTERTYPE_CONSONANT]: { start: 0, end: 0 },
-      [LETTERTYPE_VOWEL]: { start: 0, end: 0 },
+      [consonant]: { start: 0, end: 0 },
+      [vowel]: { start: 0, end: 0 },
     };
     for (const simpleWeightKey in simpleWeights) {
-      const simpleWeight = simpleWeights[simpleWeightKey as LETTER_TYPES];
+      const simpleWeight = simpleWeights[simpleWeightKey as TLetterTypes];
       const start = lastLength + 1;
       const end = lastLength + simpleWeight.length;
       lastLength = end;
       const fullRange = { start, end };
-      fullWeights[simpleWeightKey as LETTER_TYPES] = fullRange;
+      fullWeights[simpleWeightKey as TLetterTypes] = fullRange;
     }
 
     return fullWeights;
@@ -58,8 +57,8 @@ const generateRandomName = () => {
   }
 
   interface IFullLetterTypeWeights {
-  [LETTERTYPE_CONSONANT]: IFullWeightedRange;
-  [LETTERTYPE_VOWEL]: IFullWeightedRange
+  [consonant]: IFullWeightedRange;
+  [vowel]: IFullWeightedRange
   }
 
   const letterTypeWeightedTowardConsonant: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardConsonant);
@@ -69,9 +68,9 @@ const generateRandomName = () => {
   const generateWeightedLetterFromLetterType = (letterTypeWeights: IFullLetterTypeWeights) => {
     const random = randomNumber({ min: 1, max: 100 });
     console.info('What is random number?', random);
-    let letterType!: LETTER_TYPES;
+    let letterType!: TLetterTypes;
     for (const weightName in letterTypeWeights) {
-      const weightType = weightName as LETTER_TYPES;
+      const weightType = weightName as TLetterTypes;
       const weight = letterTypeWeights[weightType];
       const { start, end } = weight;
       console.info("random >= start", random, start, random >= start);
