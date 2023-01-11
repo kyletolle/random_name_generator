@@ -20,17 +20,17 @@ interface IWeightedRange {
   end: number;
 }
 
-interface Weights {
+interface IFullWeights {
  [LETTERTYPE_CONSONANT]: IWeightedRange;
  [LETTERTYPE_VOWEL]: IWeightedRange
 }
 
-const weightedTowardConsonant: Weights = {
+const weightedTowardConsonant: IFullWeights = {
   [LETTERTYPE_CONSONANT]: { start: 1, end: 95 },
   [LETTERTYPE_VOWEL]: { start: 96, end: 100 }
 };
 
-const weightedTowardVowel: Weights = {
+const weightedTowardVowel: IFullWeights = {
   [LETTERTYPE_CONSONANT]: { start: 1, end: 5 },
   [LETTERTYPE_VOWEL]: { start: 6, end: 100 }
 }
@@ -40,7 +40,7 @@ const weightedTowardVowel: Weights = {
 // factory that can take in one of the simple ranges and make a weighted range
 // from that with the appropriate start and ends.
 
-const generateWeightedLetter = (letterTypeWeights: Weights) => {
+const generateWeightedLetter = (letterTypeWeights: IFullWeights) => {
   const random = randomNumber({ min: 1, max: 100 });
   console.info('What is random number?', random);
   let letterType!: LETTER_TYPES;
@@ -69,7 +69,7 @@ const getInitialLetter = () => {
 const nameLength = randomNumber({ min: 2, max: 10});
 const letters: string[] = [];
 letters[0] = getInitialLetter();
-let nextLetterTypeWeights: Weights = weightedTowardVowel;
+let nextLetterTypeWeights: IFullWeights = weightedTowardVowel;
 for(let i = 1; i < nameLength; i++) {
   const randomLetter = generateWeightedLetter(nextLetterTypeWeights);
   letters.push(randomLetter);
