@@ -39,11 +39,11 @@ const generateRandomName = () => {
   };
   const letterTypeWeightedTowardConsonant: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardConsonant);
 
-  const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
   const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
     [consonant]: { length: 5 },
     [vowel]: { length: 95 },
   }
+  const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
 
   const generateWeightedLetterFromLetterType = (letterTypeWeights: IFullLetterTypeWeights) => {
     const random = randomNumber({ min: 1, max: 100 });
