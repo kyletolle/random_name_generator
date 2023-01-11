@@ -2,13 +2,13 @@ import { LetterTypes } from "./constants.ts";
 
 const { consonant, vowel } = LetterTypes;
 
-interface ISimpleWeightedRange {
-  length: number;
+interface ISimpleLetterWeights {
+  [letter: string]: number;
 }
 
 interface ISimpleLetterTypeWeights {
-  [consonant]: ISimpleWeightedRange;
-  [vowel]: ISimpleWeightedRange;
+  [consonant]: number;
+  [vowel]: number;
 }
 
 interface IFullWeightedRange {
@@ -21,14 +21,14 @@ interface IFullLetterTypeWeights {
   [vowel]: IFullWeightedRange
 }
 
-interface IGenericWeights {
+interface IGenericFullWeights {
   [name: string]: IFullWeightedRange;
 }
 
 export type {
-  ISimpleWeightedRange,
+  ISimpleLetterWeights,
   ISimpleLetterTypeWeights,
   IFullWeightedRange,
   IFullLetterTypeWeights,
-  IGenericWeights
+  IGenericFullWeights
 };

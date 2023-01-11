@@ -1,7 +1,7 @@
 import { randomNumber } from "https://deno.land/x/random_number@2.0.0/mod.ts";
 import { consonants, vowels, LetterTypes } from "../constants.ts";
 import type { TLetterTypes } from "../constants.ts";
-import type { ISimpleLetterTypeWeights, IFullLetterTypeWeights, IGenericWeights, IFullWeightedRange } from "../interfaces.ts";
+import type { ISimpleLetterTypeWeights, IFullLetterTypeWeights, IGenericFullWeights, IFullWeightedRange, ISimpleLetterWeights } from "../interfaces.ts";
 
 const { consonant, vowel } = LetterTypes;
 
@@ -10,23 +10,22 @@ interface INamedWeightedRange {
   range: IFullWeightedRange;
 }
 
-const generateWeightedRangeFromWeights = (weights: IGenericWeights): INamedWeightedRange => {
+const generateWeightedRangeFromWeights = (weights: IGenericFullWeights): INamedWeightedRange => {
   const random = randomNumber({ min: 1, max: 100 });
 
-  console.info('What is random number?', random);
+  // console.info('What is random number?', random);
   let chosenName!: string;
   let chosenRange!: IFullWeightedRange;
-
 
   for (const weightName in weights) {
     const weight = weights[weightName];
     const { start, end } = weight;
-    console.info('random', random, 'start', start, 'random >= start', random >= start);
-    console.info( 'random', random, 'end', end, 'random <= end', random <= end);
+    // console.info('weightName', weightName, 'random', random, 'start', start, 'random >= start', random >= start);
+    // console.info('weightName', weightName, 'random', random, 'end', end, 'random <= end', random <= end);
     if (random >= start && random <= end) {
       chosenName = weightName;
       chosenRange = weight;
-      console.info(`using a value that is a ${weight}`)
+      console.info(`using a value that is a '${weightName}'`)
 
       break;
     }
@@ -36,11 +35,18 @@ const generateWeightedRangeFromWeights = (weights: IGenericWeights): INamedWeigh
 }
 
 const generateRandomEquallyWeightedLetterFromLetterTypeWeights = (letterTypeWeights: IFullLetterTypeWeights) => {
-  const namedWeightedRange = generateWeightedRangeFromWeights(letterTypeWeights as unknown as IGenericWeights);
+  const namedWeightedRange = generateWeightedRangeFromWeights(letterTypeWeights as unknown as IGenericFullWeights);
 
   const letterType = namedWeightedRange.name as TLetterTypes;
 
   const randomLetter = getRandomEquallyWeightedLetterFromLetterType(letterType);
+  return randomLetter;
+}
+
+const generateRandomLetterFromLetterWeights = (letterWeights: IGenericFullWeights): string => {
+  const namedWeightedRange = generateWeightedRangeFromWeights(letterWeights);
+
+  const randomLetter = namedWeightedRange.name;
   return randomLetter;
 }
 
@@ -53,6 +59,24 @@ const getRandomEquallyWeightedLetterFromLetterType = (letterType: TLetterTypes) 
   }
 }
 
+const convertSimpleLetterWeightsToGenericFullWeights = (simpleWeights: ISimpleLetterWeights): IGenericFullWeights => {
+  const fullWeights: IGenericFullWeights = {
+  };
+
+  let lastLength = 0;
+
+  for (const simpleLetterWeightKey in simpleWeights) {
+    const simpleLetterWeightLength = simpleWeights[simpleLetterWeightKey as TLetterTypes];
+    const start = lastLength + 1;
+    const end = lastLength + simpleLetterWeightLength;
+    lastLength = end;
+    const fullRange = { start, end };
+    fullWeights[simpleLetterWeightKey] = fullRange;
+  }
+
+  return fullWeights;
+}
+
 const convertSimpleToFullLetterTypeWeightedRange = (simpleWeights: ISimpleLetterTypeWeights): IFullLetterTypeWeights => {
   let lastLength = 0;
   const fullWeights: IFullLetterTypeWeights = {
@@ -61,9 +85,9 @@ const convertSimpleToFullLetterTypeWeightedRange = (simpleWeights: ISimpleLetter
   };
 
   for (const simpleWeightKey in simpleWeights) {
-    const simpleWeight = simpleWeights[simpleWeightKey as TLetterTypes];
+    const simpleWeightLength = simpleWeights[simpleWeightKey as TLetterTypes];
     const start = lastLength + 1;
-    const end = lastLength + simpleWeight.length;
+    const end = lastLength + simpleWeightLength;
     lastLength = end;
     const fullRange = { start, end };
     fullWeights[simpleWeightKey as TLetterTypes] = fullRange;
@@ -72,5 +96,11 @@ const convertSimpleToFullLetterTypeWeightedRange = (simpleWeights: ISimpleLetter
   return fullWeights;
 }
 
-
-export { generateRandomEquallyWeightedLetterFromLetterTypeWeights, getRandomEquallyWeightedLetterFromLetterType, convertSimpleToFullLetterTypeWeightedRange };
+export {
+  generateRandomEquallyWeightedLetterFromLetterTypeWeights,
+  getRandomEquallyWeightedLetterFromLetterType,
+  convertSimpleToFullLetterTypeWeightedRange,
+  convertSimpleLetterWeightsToGenericFullWeights,
+  generateRandomLetterFromLetterWeights,
+  generateWeightedRangeFromWeights,
+};

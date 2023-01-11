@@ -7,14 +7,14 @@ const generateRandomName = () => {
   const { consonant, vowel } = LetterTypes;
 
   const simpleLetterTypeWeightedTowardConsonant: ISimpleLetterTypeWeights = {
-    [consonant]: { length: 95 },
-    [vowel]: { length: 5 },
+    [consonant]: 95,
+    [vowel]: 5,
   };
   const letterTypeWeightedTowardConsonant: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardConsonant);
 
   const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
-    [consonant]: { length: 5 },
-    [vowel]: { length: 95 },
+    [consonant]: 5,
+    [vowel]: 95,
   }
   const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
 

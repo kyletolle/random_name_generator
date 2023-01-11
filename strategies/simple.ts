@@ -7,8 +7,8 @@ const generateRandomName = () => {
   const { consonant, vowel } = LetterTypes;
 
   const simpleLetterTypeEqualWeights : ISimpleLetterTypeWeights = {
-    [consonant]: { length: 50 },
-    [vowel]: { length: 50 },
+    [consonant]: 50,
+    [vowel]: 50,
   };
   const letterTypeWeightedEqually: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeEqualWeights);
 
