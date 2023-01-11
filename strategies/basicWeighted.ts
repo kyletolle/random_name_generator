@@ -1,6 +1,7 @@
 import { randomNumber } from "https://deno.land/x/random_number@2.0.0/mod.ts";
 import { consonants, vowels, LetterTypes } from "../constants.ts";
 import type { TLetterTypes } from "../constants.ts";
+import type { ISimpleLetterTypeWeights, IFullLetterTypeWeights } from "../interfaces.ts";
 
 const generateRandomName = () => {
   const { consonant, vowel } = LetterTypes;
@@ -12,25 +13,6 @@ const generateRandomName = () => {
       default:
         return vowels[randomNumber({min: 0, max: vowels.length - 1})]
     }
-  }
-
-  interface ISimpleWeightedRange {
-    length: number;
-  }
-
-  interface ISimpleLetterTypeWeights {
-    [consonant]: ISimpleWeightedRange;
-    [vowel]: ISimpleWeightedRange;
-  }
-
-  const simpleLetterTypeWeightedTowardConsonant: ISimpleLetterTypeWeights = {
-    [consonant]: { length: 95 },
-    [vowel]: { length: 5 },
-  };
-
-  const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
-    [consonant]: { length: 5 },
-    [vowel]: { length: 95 },
   }
 
   const convertSimpleToFullLetterTypeWeightedRange = (simpleWeights: ISimpleLetterTypeWeights): IFullLetterTypeWeights => {
@@ -51,19 +33,17 @@ const generateRandomName = () => {
     return fullWeights;
   }
 
-  interface IFullWeightedRange {
-    start: number;
-    end: number;
-  }
-
-  interface IFullLetterTypeWeights {
-  [consonant]: IFullWeightedRange;
-  [vowel]: IFullWeightedRange
-  }
-
+  const simpleLetterTypeWeightedTowardConsonant: ISimpleLetterTypeWeights = {
+    [consonant]: { length: 95 },
+    [vowel]: { length: 5 },
+  };
   const letterTypeWeightedTowardConsonant: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardConsonant);
 
   const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
+  const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
+    [consonant]: { length: 5 },
+    [vowel]: { length: 95 },
+  }
 
   const generateWeightedLetterFromLetterType = (letterTypeWeights: IFullLetterTypeWeights) => {
     const random = randomNumber({ min: 1, max: 100 });
@@ -105,6 +85,5 @@ const generateRandomName = () => {
   const randomName = letters.join('');
   return randomName;
 }
-
 
 export default generateRandomName;
