@@ -53,8 +53,8 @@ const generateRandomName = () => {
       const weightType = weightName as TLetterTypes;
       const weight = letterTypeWeights[weightType];
       const { start, end } = weight;
-      console.info("random >= start", random, start, random >= start);
-      console.info("random <= end", random, end, random <= end);
+      console.info('random', random, 'start', start, 'random >= start', random >= start);
+      console.info( 'random', random, 'end', end, 'random <= end', random <= end);
       if (random >= start && random <= end) {
         letterType = weightType;
         console.info(`generating a letter that is a ${weightType}`)
