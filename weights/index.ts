@@ -1,33 +1,50 @@
 import { randomNumber } from "https://deno.land/x/random_number@2.0.0/mod.ts";
 import { consonants, vowels, LetterTypes } from "../constants.ts";
 import type { TLetterTypes } from "../constants.ts";
-import type { ISimpleLetterTypeWeights, IFullLetterTypeWeights } from "../interfaces.ts";
+import type { ISimpleLetterTypeWeights, IFullLetterTypeWeights, IGenericWeights, IFullWeightedRange } from "../interfaces.ts";
 
 const { consonant, vowel } = LetterTypes;
 
-const generateWeightedLetterFromLetterTypeWeights = (letterTypeWeights: IFullLetterTypeWeights) => {
+interface INamedWeightedRange {
+  name: string;
+  range: IFullWeightedRange;
+}
+
+const generateWeightedRangeFromWeights = (weights: IGenericWeights): INamedWeightedRange => {
   const random = randomNumber({ min: 1, max: 100 });
+
   console.info('What is random number?', random);
-  let letterType!: TLetterTypes;
-  for (const weightName in letterTypeWeights) {
-    const weightType = weightName as TLetterTypes;
-    const weight = letterTypeWeights[weightType];
+  let chosenName!: string;
+  let chosenRange!: IFullWeightedRange;
+
+
+  for (const weightName in weights) {
+    const weight = weights[weightName];
     const { start, end } = weight;
     console.info('random', random, 'start', start, 'random >= start', random >= start);
     console.info( 'random', random, 'end', end, 'random <= end', random <= end);
     if (random >= start && random <= end) {
-      letterType = weightType;
-      console.info(`generating a letter that is a ${weightType}`)
+      chosenName = weightName;
+      chosenRange = weight;
+      console.info(`using a value that is a ${weight}`)
+
       break;
     }
   }
+
+  return { name: chosenName, range: chosenRange };
+}
+
+const generateWeightedLetterFromLetterTypeWeights = (letterTypeWeights: IFullLetterTypeWeights) => {
+  const namedWeightedRange = generateWeightedRangeFromWeights(letterTypeWeights as unknown as IGenericWeights);
+
+  const letterType = namedWeightedRange.name as TLetterTypes;
 
   const randomLetter = getRandomLetterFromLetterType(letterType);
   return randomLetter;
 }
 
 const getRandomLetterFromLetterType = (letterType: TLetterTypes) => {
-
   switch (letterType) {
     case consonant:
       return consonants[randomNumber({min: 0, max: consonants.length - 1})]
@@ -42,6 +59,7 @@ const convertSimpleToFullLetterTypeWeightedRange = (simpleWeights: ISimpleLetter
     [consonant]: { start: 0, end: 0 },
     [vowel]: { start: 0, end: 0 },
   };
+
   for (const simpleWeightKey in simpleWeights) {
     const simpleWeight = simpleWeights[simpleWeightKey as TLetterTypes];
     const start = lastLength + 1;

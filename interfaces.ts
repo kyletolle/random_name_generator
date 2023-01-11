@@ -21,4 +21,14 @@ interface IFullLetterTypeWeights {
   [vowel]: IFullWeightedRange
 }
 
-export type { ISimpleWeightedRange, ISimpleLetterTypeWeights, IFullWeightedRange, IFullLetterTypeWeights };
+interface IGenericWeights {
+  [name: string]: IFullWeightedRange;
+}
+
+export type {
+  ISimpleWeightedRange,
+  ISimpleLetterTypeWeights,
+  IFullWeightedRange,
+  IFullLetterTypeWeights,
+  IGenericWeights
+};
