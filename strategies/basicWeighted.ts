@@ -15,14 +15,14 @@ const getRandomLetter = (letterType: LETTER_TYPES) => {
   }
 }
 
-interface WeightedRange {
+interface IWeightedRange {
   start: number;
   end: number;
 }
 
 interface Weights {
- [LETTERTYPE_CONSONANT]: WeightedRange;
- [LETTERTYPE_VOWEL]: WeightedRange
+ [LETTERTYPE_CONSONANT]: IWeightedRange;
+ [LETTERTYPE_VOWEL]: IWeightedRange
 }
 
 const weightedTowardConsonant: Weights = {
@@ -83,4 +83,3 @@ return randomName;
 
 
 export default generateRandomName;
-
