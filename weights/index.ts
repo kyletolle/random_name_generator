@@ -67,6 +67,8 @@ const convertSimpleLetterWeightsToGenericFullWeights = (simpleWeights: ISimpleLe
 
   for (const simpleLetterWeightKey in simpleWeights) {
     const simpleLetterWeightLength = simpleWeights[simpleLetterWeightKey as TLetterTypes];
+    if (simpleLetterWeightLength === 0) { continue; }
+
     const start = lastLength + 1;
     const end = lastLength + simpleLetterWeightLength;
     lastLength = end;
