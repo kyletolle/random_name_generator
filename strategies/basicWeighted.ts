@@ -15,6 +15,43 @@ const getRandomLetter = (letterType: LETTER_TYPES) => {
   }
 }
 
+interface ISimpleWeightedRange {
+  length: number;
+}
+
+interface ISimpleWeights {
+  [LETTERTYPE_CONSONANT]: ISimpleWeightedRange;
+  [LETTERTYPE_VOWEL]: ISimpleWeightedRange;
+}
+
+const simpleWeightedTowardConsonant: ISimpleWeights = {
+  [LETTERTYPE_CONSONANT]: { length: 95 },
+  [LETTERTYPE_VOWEL]: { length: 5 },
+};
+
+const simpleWeightedTowardVowel: ISimpleWeights = {
+  [LETTERTYPE_CONSONANT]: { length: 5 },
+  [LETTERTYPE_VOWEL]: { length: 95 },
+}
+
+const convertSimpleToFullWeightedRange = (simpleWeights: ISimpleWeights): IFullWeights => {
+  let lastLength = 0;
+  const fullWeights: IFullWeights = {
+    [LETTERTYPE_CONSONANT]: { start: 0, end: 0 },
+    [LETTERTYPE_VOWEL]: { start: 0, end: 0 },
+  };
+  for (const simpleWeightKey in simpleWeights) {
+    const simpleWeight = simpleWeights[simpleWeightKey as LETTER_TYPES];
+    const start = lastLength + 1;
+    const end = lastLength + simpleWeight.length;
+    lastLength = end;
+    const fullRange = { start, end };
+    fullWeights[simpleWeightKey as LETTER_TYPES] = fullRange;
+  }
+
+  return fullWeights;
+}
+
 interface IFullWeightedRange {
   start: number;
   end: number;
@@ -25,20 +62,11 @@ interface IFullWeights {
  [LETTERTYPE_VOWEL]: IFullWeightedRange
 }
 
-const weightedTowardConsonant: IFullWeights = {
-  [LETTERTYPE_CONSONANT]: { start: 1, end: 95 },
-  [LETTERTYPE_VOWEL]: { start: 96, end: 100 }
-};
+const weightedTowardConsonant: IFullWeights = convertSimpleToFullWeightedRange(simpleWeightedTowardConsonant);
+console.info('What is weightedTowardConsonant?', weightedTowardConsonant);
 
-const weightedTowardVowel: IFullWeights = {
-  [LETTERTYPE_CONSONANT]: { start: 1, end: 5 },
-  [LETTERTYPE_VOWEL]: { start: 6, end: 100 }
-}
-
-// TODO: Create a simple weighted range, where you can specify the name as a key
-// and the value is how long the range should be, then make a weighted range
-// factory that can take in one of the simple ranges and make a weighted range
-// from that with the appropriate start and ends.
+const weightedTowardVowel: IFullWeights = convertSimpleToFullWeightedRange(simpleWeightedTowardVowel);
+console.info('What is weightedTowardVowel?', weightedTowardVowel);
 
 const generateWeightedLetter = (letterTypeWeights: IFullWeights) => {
   const random = randomNumber({ min: 1, max: 100 });
