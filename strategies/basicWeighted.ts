@@ -6,7 +6,7 @@ const LETTERTYPE_CONSONANT = 'consonant';
 const LETTERTYPE_VOWEL = 'vowel';
 type LETTER_TYPES = typeof LETTERTYPE_CONSONANT | typeof LETTERTYPE_VOWEL;
 
-const getRandomLetter = (letterType: LETTER_TYPES) => {
+const getRandomLetterFromLetterType = (letterType: LETTER_TYPES) => {
   switch (letterType) {
     case LETTERTYPE_CONSONANT:
       return consonants[randomNumber({min: 0, max: consonants.length - 1})]
@@ -19,24 +19,24 @@ interface ISimpleWeightedRange {
   length: number;
 }
 
-interface ISimpleWeights {
+interface ISimpleLetterTypeWeights {
   [LETTERTYPE_CONSONANT]: ISimpleWeightedRange;
   [LETTERTYPE_VOWEL]: ISimpleWeightedRange;
 }
 
-const simpleWeightedTowardConsonant: ISimpleWeights = {
+const simpleLetterTypeWeightedTowardConsonant: ISimpleLetterTypeWeights = {
   [LETTERTYPE_CONSONANT]: { length: 95 },
   [LETTERTYPE_VOWEL]: { length: 5 },
 };
 
-const simpleWeightedTowardVowel: ISimpleWeights = {
+const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
   [LETTERTYPE_CONSONANT]: { length: 5 },
   [LETTERTYPE_VOWEL]: { length: 95 },
 }
 
-const convertSimpleToFullWeightedRange = (simpleWeights: ISimpleWeights): IFullWeights => {
+const convertSimpleToFullLetterTypeWeightedRange = (simpleWeights: ISimpleLetterTypeWeights): IFullLetterTypeWeights => {
   let lastLength = 0;
-  const fullWeights: IFullWeights = {
+  const fullWeights: IFullLetterTypeWeights = {
     [LETTERTYPE_CONSONANT]: { start: 0, end: 0 },
     [LETTERTYPE_VOWEL]: { start: 0, end: 0 },
   };
@@ -57,18 +57,16 @@ interface IFullWeightedRange {
   end: number;
 }
 
-interface IFullWeights {
+interface IFullLetterTypeWeights {
  [LETTERTYPE_CONSONANT]: IFullWeightedRange;
  [LETTERTYPE_VOWEL]: IFullWeightedRange
 }
 
-const weightedTowardConsonant: IFullWeights = convertSimpleToFullWeightedRange(simpleWeightedTowardConsonant);
-console.info('What is weightedTowardConsonant?', weightedTowardConsonant);
+const letterTypeWeightedTowardConsonant: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardConsonant);
 
-const weightedTowardVowel: IFullWeights = convertSimpleToFullWeightedRange(simpleWeightedTowardVowel);
-console.info('What is weightedTowardVowel?', weightedTowardVowel);
+const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
 
-const generateWeightedLetter = (letterTypeWeights: IFullWeights) => {
+const generateWeightedLetterFromLetterType = (letterTypeWeights: IFullLetterTypeWeights) => {
   const random = randomNumber({ min: 1, max: 100 });
   console.info('What is random number?', random);
   let letterType!: LETTER_TYPES;
@@ -85,24 +83,24 @@ const generateWeightedLetter = (letterTypeWeights: IFullWeights) => {
     }
   }
 
-  const randomLetter = getRandomLetter(letterType);
+  const randomLetter = getRandomLetterFromLetterType(letterType);
   return randomLetter;
 }
 
-const getInitialLetter = () => {
-  const randomInitialLetter = generateWeightedLetter(weightedTowardConsonant).toUpperCase()
+const getInitialLetterFromLetterType = () => {
+  const randomInitialLetter = generateWeightedLetterFromLetterType(letterTypeWeightedTowardConsonant).toUpperCase()
   return randomInitialLetter;
 }
 
 const nameLength = randomNumber({ min: 2, max: 10});
 const letters: string[] = [];
-letters[0] = getInitialLetter();
-let nextLetterTypeWeights: IFullWeights = weightedTowardVowel;
+letters[0] = getInitialLetterFromLetterType();
+let nextLetterTypeWeights: IFullLetterTypeWeights = letterTypeWeightedTowardVowel;
 for(let i = 1; i < nameLength; i++) {
-  const randomLetter = generateWeightedLetter(nextLetterTypeWeights);
+  const randomLetter = generateWeightedLetterFromLetterType(nextLetterTypeWeights);
   letters.push(randomLetter);
   const isLetterAVowel = vowels.includes(randomLetter);
-  nextLetterTypeWeights = isLetterAVowel ? weightedTowardConsonant : weightedTowardVowel;
+  nextLetterTypeWeights = isLetterAVowel ? letterTypeWeightedTowardConsonant : letterTypeWeightedTowardVowel;
   console.info(`Next letter should be weighted toward ${isLetterAVowel ? 'consonant' : 'vowel'}`, nextLetterTypeWeights)
 }
 const randomName = letters.join('');
