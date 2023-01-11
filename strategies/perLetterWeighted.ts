@@ -15,7 +15,7 @@ const simpleConsonantLetterWeights: ISimpleLetterWeights = {
   'l': 0,
   'm': 1,
   'n': 1,
-  'p': 1,
+  'p': 12,
   'q': 0,
   'r': 18,
   's': 0,
@@ -23,7 +23,7 @@ const simpleConsonantLetterWeights: ISimpleLetterWeights = {
   'v': 0,
   'w': 0,
   'x': 0,
-  'z': 12,
+  'z': 1,
 };
 
 const simpleVowelLetterWeights: ISimpleLetterWeights = {
