@@ -45,7 +45,7 @@ const generateRandomName = () => {
   }
   const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
 
-  const generateWeightedLetterFromLetterType = (letterTypeWeights: IFullLetterTypeWeights) => {
+  const generateWeightedLetterFromLetterTypeWeights = (letterTypeWeights: IFullLetterTypeWeights) => {
     const random = randomNumber({ min: 1, max: 100 });
     console.info('What is random number?', random);
     let letterType!: TLetterTypes;
@@ -67,7 +67,7 @@ const generateRandomName = () => {
   }
 
   const getInitialLetterFromLetterType = () => {
-    const randomInitialLetter = generateWeightedLetterFromLetterType(letterTypeWeightedTowardConsonant).toUpperCase()
+    const randomInitialLetter = generateWeightedLetterFromLetterTypeWeights(letterTypeWeightedTowardConsonant).toUpperCase()
     return randomInitialLetter;
   }
 
@@ -76,7 +76,7 @@ const generateRandomName = () => {
   letters[0] = getInitialLetterFromLetterType();
   let nextLetterTypeWeights: IFullLetterTypeWeights = letterTypeWeightedTowardVowel;
   for(let i = 1; i < nameLength; i++) {
-    const randomLetter = generateWeightedLetterFromLetterType(nextLetterTypeWeights);
+    const randomLetter = generateWeightedLetterFromLetterTypeWeights(nextLetterTypeWeights);
     letters.push(randomLetter);
     const isLetterAVowel = vowels.includes(randomLetter);
     nextLetterTypeWeights = isLetterAVowel ? letterTypeWeightedTowardConsonant : letterTypeWeightedTowardVowel;
