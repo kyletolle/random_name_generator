@@ -83,16 +83,11 @@ const generateRandomVowel = (): string => {
   return randomLetter;
 };
 
-const generateRandomName = () => {
-  const nameLength = randomNumber({ min: 2, max: 10 });
-  const letters: string[] = [];
-  letters[0] = generateInitialLetter();
-  let nextLetterTypeWeights: IFullLetterTypeWeights =
-    letterTypeWeightedTowardVowel;
-  for (let i = 1; i < nameLength; i++) {
+const generateRandomLetter = (nextLetterTypeWeights: IFullLetterTypeWeights) => {
     const namedWeightedRange = generateWeightedRangeFromWeights(
       nextLetterTypeWeights as unknown as IGenericFullWeights,
     );
+
     let randomLetter: string;
     switch (namedWeightedRange.name) {
       case consonant:
@@ -103,7 +98,20 @@ const generateRandomName = () => {
         randomLetter = generateRandomVowel();
         break;
     }
+
+    return randomLetter;
+}
+
+const generateRandomName = () => {
+  const nameLength = randomNumber({ min: 2, max: 10 });
+  const letters: string[] = [];
+  letters.push(generateInitialLetter());
+  let nextLetterTypeWeights: IFullLetterTypeWeights =
+    letterTypeWeightedTowardVowel;
+  for (let i = 1; i < nameLength; i++) {
+    const randomLetter = generateRandomLetter(nextLetterTypeWeights);
     letters.push(randomLetter);
+
     const isLetterAVowel = vowels.includes(randomLetter);
     nextLetterTypeWeights = isLetterAVowel
       ? letterTypeWeightedTowardConsonant
@@ -115,6 +123,7 @@ const generateRandomName = () => {
       nextLetterTypeWeights,
     );
   }
+
   const randomName = letters.join('');
   return randomName;
 };
