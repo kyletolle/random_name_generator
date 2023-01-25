@@ -25,3 +25,9 @@ deno task start
 ```
 
 This will watch the project directory and restart as necessary.
+
+Then you can view the local page at [](http://localhost:8000) for development.
+
+## Other Tasks
+
+Run `deno task fix` to run linting and fix formatting!
