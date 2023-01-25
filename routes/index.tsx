@@ -1,20 +1,20 @@
-import { Head } from "$fresh/runtime.ts";
-import generateSimpleRandomName from "../strategies/simple.ts";
-import generateBasicWeightedRandomName from "../strategies/basicWeighted.ts";
-import generatePerLetterWeightedRandomName from "../strategies/perLetterWeighted.ts"
-import generateSimpleLookbackRandomName from "../strategies/simpleLookback.ts"
+import { Head } from '$fresh/runtime.ts';
+import generateSimpleRandomName from '../strategies/simple.ts';
+import generateBasicWeightedRandomName from '../strategies/basicWeighted.ts';
+import generatePerLetterWeightedRandomName from '../strategies/perLetterWeighted.ts';
+import generateSimpleLookbackRandomName from '../strategies/simpleLookback.ts';
 
-const bigWord = "font-bold text(center 5xl black)";
-const sectionHeader = "font-bold text(left 2xl gray-500)";
-const separator = "my-10";
+const bigWord = 'font-bold text(center 5xl black)';
+const sectionHeader = 'font-bold text(left 2xl gray-500)';
+const separator = 'my-10';
 export default function Home() {
   return (
     <>
       <Head>
         <title>Random Name Generator</title>
       </Head>
-      <div class="p-4 mx-auto max-w-screen-md">
-        <p class="my-6">
+      <div class='p-4 mx-auto max-w-screen-md'>
+        <p class='my-6'>
           Here's your random name!
         </p>
         <h1 class={sectionHeader}>Simple Strategy</h1>
