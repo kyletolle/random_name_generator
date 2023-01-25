@@ -109,6 +109,7 @@ const generateRandomName = () => {
   let nextLetterTypeWeights: IFullLetterTypeWeights =
     letterTypeWeightedTowardVowel;
   for (let i = 1; i < nameLength; i++) {
+    // TODO: If we pass in the previous letter, we should be able to do all this vowel/consonant logic within generateRandomLetter!
     const randomLetter = generateRandomLetter(nextLetterTypeWeights);
     letters.push(randomLetter);
 
