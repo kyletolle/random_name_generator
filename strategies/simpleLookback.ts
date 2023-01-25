@@ -36,9 +36,9 @@ const blankSimpleLetterWeights: ISimpleLetterWeights = {
 console.info(typeof blankSimpleLetterWeights);
 
 const initialSimpleLetterWeights: ISimpleLetterWeights = {
-  'a': 25,
-  'b': 25,
-  'c': 25,
+  'a': 85,
+  'b': 5,
+  'c': 5,
   'd': 0,
   'e': 0,
   'f': 0,
@@ -55,7 +55,7 @@ const initialSimpleLetterWeights: ISimpleLetterWeights = {
   'q': 0,
   'r': 0,
   's': 0,
-  't': 25,
+  't': 5,
   'u': 0,
   'v': 0,
   'w': 0,
