@@ -35,42 +35,41 @@ const simpleVowelLetterWeights: ISimpleLetterWeights = {
   'y': 1,
 };
 
+const { consonant, vowel } = LetterTypes;
+const simpleLetterTypeWeightedTowardConsonant: ISimpleLetterTypeWeights = {
+  [consonant]: 95,
+  [vowel]: 5,
+};
+const letterTypeWeightedTowardConsonant: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardConsonant);
+
+const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
+
+  [consonant]: 5,
+  [vowel]: 95,
+}
+const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
+
+const consonantWeights: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights(simpleConsonantLetterWeights);
+const vowelWeights: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights(simpleVowelLetterWeights);
+
+const generateRandomConsonant = (): string => {
+  const randomLetter = generateRandomLetterFromLetterWeights(consonantWeights);
+  return randomLetter
+}
+
+const generateInitialLetter = () => {
+  return generateRandomConsonant().toUpperCase();
+}
+
+const generateRandomVowel = (): string => {
+  const randomLetter = generateRandomLetterFromLetterWeights(vowelWeights);
+  return randomLetter
+}
 
 const generateRandomName = () => {
-  const { consonant, vowel } = LetterTypes;
-
-  const simpleLetterTypeWeightedTowardConsonant: ISimpleLetterTypeWeights = {
-    [consonant]: 95,
-    [vowel]: 5,
-  };
-  const letterTypeWeightedTowardConsonant: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardConsonant);
-
-  const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
-    [consonant]: 5,
-    [vowel]: 95,
-  }
-  const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
-
-  const consonantWeights: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights(simpleConsonantLetterWeights);
-  const vowelWeights: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights(simpleVowelLetterWeights);
-
-  const generateRandomConsonant = (): string => {
-    const randomLetter = generateRandomLetterFromLetterWeights(consonantWeights);
-    return randomLetter
-  }
-
-  const getInitialLetter = () => {
-    return generateRandomConsonant().toUpperCase();
-  }
-
-  const generateRandomVowel = (): string => {
-    const randomLetter = generateRandomLetterFromLetterWeights(vowelWeights);
-    return randomLetter
-  }
-
   const nameLength = randomNumber({ min: 2, max: 10});
   const letters: string[] = [];
-  letters[0] = getInitialLetter();
+  letters[0] = generateInitialLetter();
   let nextLetterTypeWeights: IFullLetterTypeWeights = letterTypeWeightedTowardVowel;
   for(let i = 1; i < nameLength; i++) {
     const namedWeightedRange = generateWeightedRangeFromWeights(nextLetterTypeWeights as unknown as IGenericFullWeights);
