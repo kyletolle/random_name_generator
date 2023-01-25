@@ -1,7 +1,7 @@
 import { randomNumber } from "https://deno.land/x/random_number@2.0.0/mod.ts";
 import { vowels, LetterTypes } from "../constants.ts";
 import type { ISimpleLetterTypeWeights, ISimpleLetterWeights, IFullLetterTypeWeights, IGenericFullWeights } from "../interfaces.ts";
-import { convertSimpleLetterWeightsToGenericFullWeights, convertSimpleToFullLetterTypeWeightedRange, generateRandomEquallyWeightedLetterFromLetterTypeWeights, generateRandomLetterFromLetterWeights, generateWeightedRangeFromWeights } from "../weights/index.ts";
+import { convertSimpleLetterWeightsToGenericFullWeights, convertSimpleToFullLetterTypeWeightedRange, generateRandomLetterFromLetterWeights, generateWeightedRangeFromWeights } from "../weights/index.ts";
 
 const simpleConsonantLetterWeights: ISimpleLetterWeights = {
   'b': 21,
