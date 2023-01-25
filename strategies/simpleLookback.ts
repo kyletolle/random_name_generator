@@ -1,6 +1,9 @@
 import { randomNumber } from 'https://deno.land/x/random_number@2.0.0/mod.ts';
 import { IGenericFullWeights, ISimpleLetterWeights } from '../interfaces.ts';
-import { convertSimpleLetterWeightsToGenericFullWeights, generateRandomLetterFromLetterWeights } from '../weights/index.ts';
+import {
+  convertSimpleLetterWeightsToGenericFullWeights,
+  generateRandomLetterFromLetterWeights,
+} from '../weights/index.ts';
 
 const blankSimpleLetterWeights: ISimpleLetterWeights = {
   'a': 0,
@@ -60,211 +63,218 @@ const initialSimpleLetterWeights: ISimpleLetterWeights = {
   'y': 0,
   'z': 0,
 };
-const initialFullLetterWeights: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights(initialSimpleLetterWeights);
+const initialFullLetterWeights: IGenericFullWeights =
+  convertSimpleLetterWeightsToGenericFullWeights(initialSimpleLetterWeights);
 
-const lettersToFollowA: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights({
-  'a': 0,
-  'b': 20,
-  'c': 20,
-  'd': 0,
-  'e': 0,
-  'f': 0,
-  'g': 0,
-  'h': 0,
-  'i': 0,
-  'j': 0,
-  'k': 20,
-  'l': 0,
-  'm': 0,
-  'n': 0,
-  'o': 0,
-  'p': 20,
-  'q': 0,
-  'r': 0,
-  's': 0,
-  't': 20,
-  'u': 0,
-  'v': 0,
-  'w': 0,
-  'x': 0,
-  'y': 0,
-  'z': 0,
-});
+const lettersToFollowA: IGenericFullWeights =
+  convertSimpleLetterWeightsToGenericFullWeights({
+    'a': 0,
+    'b': 20,
+    'c': 20,
+    'd': 0,
+    'e': 0,
+    'f': 0,
+    'g': 0,
+    'h': 0,
+    'i': 0,
+    'j': 0,
+    'k': 20,
+    'l': 0,
+    'm': 0,
+    'n': 0,
+    'o': 0,
+    'p': 20,
+    'q': 0,
+    'r': 0,
+    's': 0,
+    't': 20,
+    'u': 0,
+    'v': 0,
+    'w': 0,
+    'x': 0,
+    'y': 0,
+    'z': 0,
+  });
 
-const lettersToFollowB: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights({
-  'a': 20,
-  'b': 5,
-  'c': 15,
-  'd': 0,
-  'e': 0,
-  'f': 0,
-  'g': 0,
-  'h': 0,
-  'i': 0,
-  'j': 0,
-  'k': 20,
-  'l': 0,
-  'm': 0,
-  'n': 0,
-  'o': 0,
-  'p': 20,
-  'q': 0,
-  'r': 0,
-  's': 0,
-  't': 20,
-  'u': 0,
-  'v': 0,
-  'w': 0,
-  'x': 0,
-  'y': 0,
-  'z': 0,
-});
+const lettersToFollowB: IGenericFullWeights =
+  convertSimpleLetterWeightsToGenericFullWeights({
+    'a': 20,
+    'b': 5,
+    'c': 15,
+    'd': 0,
+    'e': 0,
+    'f': 0,
+    'g': 0,
+    'h': 0,
+    'i': 0,
+    'j': 0,
+    'k': 20,
+    'l': 0,
+    'm': 0,
+    'n': 0,
+    'o': 0,
+    'p': 20,
+    'q': 0,
+    'r': 0,
+    's': 0,
+    't': 20,
+    'u': 0,
+    'v': 0,
+    'w': 0,
+    'x': 0,
+    'y': 0,
+    'z': 0,
+  });
 
-const lettersToFollowC: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights({
-  'a': 25,
-  'b': 5,
-  'c': 5,
-  'd': 0,
-  'e': 0,
-  'f': 0,
-  'g': 0,
-  'h': 50,
-  'i': 0,
-  'j': 0,
-  'k': 5,
-  'l': 0,
-  'm': 0,
-  'n': 0,
-  'o': 0,
-  'p': 5,
-  'q': 0,
-  'r': 0,
-  's': 0,
-  't': 5,
-  'u': 0,
-  'v': 0,
-  'w': 0,
-  'x': 0,
-  'y': 0,
-  'z': 0,
-});
+const lettersToFollowC: IGenericFullWeights =
+  convertSimpleLetterWeightsToGenericFullWeights({
+    'a': 25,
+    'b': 5,
+    'c': 5,
+    'd': 0,
+    'e': 0,
+    'f': 0,
+    'g': 0,
+    'h': 50,
+    'i': 0,
+    'j': 0,
+    'k': 5,
+    'l': 0,
+    'm': 0,
+    'n': 0,
+    'o': 0,
+    'p': 5,
+    'q': 0,
+    'r': 0,
+    's': 0,
+    't': 5,
+    'u': 0,
+    'v': 0,
+    'w': 0,
+    'x': 0,
+    'y': 0,
+    'z': 0,
+  });
 
-const lettersToFollowH: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights({
-  'a': 75,
-  'b': 5,
-  'c': 5,
-  'd': 0,
-  'e': 0,
-  'f': 0,
-  'g': 0,
-  'h': 0,
-  'i': 0,
-  'j': 0,
-  'k': 5,
-  'l': 0,
-  'm': 0,
-  'n': 0,
-  'o': 0,
-  'p': 5,
-  'q': 0,
-  'r': 0,
-  's': 0,
-  't': 5,
-  'u': 0,
-  'v': 0,
-  'w': 0,
-  'x': 0,
-  'y': 0,
-  'z': 0,
-});
+const lettersToFollowH: IGenericFullWeights =
+  convertSimpleLetterWeightsToGenericFullWeights({
+    'a': 75,
+    'b': 5,
+    'c': 5,
+    'd': 0,
+    'e': 0,
+    'f': 0,
+    'g': 0,
+    'h': 0,
+    'i': 0,
+    'j': 0,
+    'k': 5,
+    'l': 0,
+    'm': 0,
+    'n': 0,
+    'o': 0,
+    'p': 5,
+    'q': 0,
+    'r': 0,
+    's': 0,
+    't': 5,
+    'u': 0,
+    'v': 0,
+    'w': 0,
+    'x': 0,
+    'y': 0,
+    'z': 0,
+  });
 
+const lettersToFollowK: IGenericFullWeights =
+  convertSimpleLetterWeightsToGenericFullWeights({
+    'a': 75,
+    'b': 5,
+    'c': 5,
+    'd': 0,
+    'e': 0,
+    'f': 0,
+    'g': 0,
+    'h': 0,
+    'i': 0,
+    'j': 0,
+    'k': 5,
+    'l': 0,
+    'm': 0,
+    'n': 0,
+    'o': 0,
+    'p': 5,
+    'q': 0,
+    'r': 0,
+    's': 0,
+    't': 5,
+    'u': 0,
+    'v': 0,
+    'w': 0,
+    'x': 0,
+    'y': 0,
+    'z': 0,
+  });
 
-const lettersToFollowK: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights({
-  'a': 75,
-  'b': 5,
-  'c': 5,
-  'd': 0,
-  'e': 0,
-  'f': 0,
-  'g': 0,
-  'h': 0,
-  'i': 0,
-  'j': 0,
-  'k': 5,
-  'l': 0,
-  'm': 0,
-  'n': 0,
-  'o': 0,
-  'p': 5,
-  'q': 0,
-  'r': 0,
-  's': 0,
-  't': 5,
-  'u': 0,
-  'v': 0,
-  'w': 0,
-  'x': 0,
-  'y': 0,
-  'z': 0,
-});
+const lettersToFollowP: IGenericFullWeights =
+  convertSimpleLetterWeightsToGenericFullWeights({
+    'a': 50,
+    'b': 5,
+    'c': 5,
+    'd': 0,
+    'e': 0,
+    'f': 0,
+    'g': 0,
+    'h': 25,
+    'i': 0,
+    'j': 0,
+    'k': 5,
+    'l': 0,
+    'm': 0,
+    'n': 0,
+    'o': 0,
+    'p': 5,
+    'q': 0,
+    'r': 0,
+    's': 0,
+    't': 5,
+    'u': 0,
+    'v': 0,
+    'w': 0,
+    'x': 0,
+    'y': 0,
+    'z': 0,
+  });
 
-const lettersToFollowP: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights({
-  'a': 50,
-  'b': 5,
-  'c': 5,
-  'd': 0,
-  'e': 0,
-  'f': 0,
-  'g': 0,
-  'h': 25,
-  'i': 0,
-  'j': 0,
-  'k': 5,
-  'l': 0,
-  'm': 0,
-  'n': 0,
-  'o': 0,
-  'p': 5,
-  'q': 0,
-  'r': 0,
-  's': 0,
-  't': 5,
-  'u': 0,
-  'v': 0,
-  'w': 0,
-  'x': 0,
-  'y': 0,
-  'z': 0,
-});
-
-const lettersToFollowT: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights({
-  'a': 50,
-  'b': 5,
-  'c': 5,
-  'd': 0,
-  'e': 0,
-  'f': 0,
-  'g': 0,
-  'h': 25,
-  'i': 0,
-  'j': 0,
-  'k': 5,
-  'l': 0,
-  'm': 0,
-  'n': 0,
-  'o': 0,
-  'p': 5,
-  'q': 0,
-  'r': 0,
-  's': 0,
-  't': 5,
-  'u': 0,
-  'v': 0,
-  'w': 0,
-  'x': 0,
-  'y': 0,
-  'z': 0,
-});
+const lettersToFollowT: IGenericFullWeights =
+  convertSimpleLetterWeightsToGenericFullWeights({
+    'a': 50,
+    'b': 5,
+    'c': 5,
+    'd': 0,
+    'e': 0,
+    'f': 0,
+    'g': 0,
+    'h': 25,
+    'i': 0,
+    'j': 0,
+    'k': 5,
+    'l': 0,
+    'm': 0,
+    'n': 0,
+    'o': 0,
+    'p': 5,
+    'q': 0,
+    'r': 0,
+    's': 0,
+    't': 5,
+    'u': 0,
+    'v': 0,
+    'w': 0,
+    'x': 0,
+    'y': 0,
+    'z': 0,
+  });
 
 // Not truly equal, but close enough given weights that are 1-100 instead of 1-1000
 const equalSimpleLetterWeights: ISimpleLetterWeights = {
@@ -295,7 +305,8 @@ const equalSimpleLetterWeights: ISimpleLetterWeights = {
   'y': 4,
   'z': 3,
 };
-const lettersToFollowGeneric: IGenericFullWeights = convertSimpleLetterWeightsToGenericFullWeights(equalSimpleLetterWeights);
+const lettersToFollowGeneric: IGenericFullWeights =
+  convertSimpleLetterWeightsToGenericFullWeights(equalSimpleLetterWeights);
 console.info(typeof lettersToFollowGeneric);
 
 const getCurrentLetterWeights = (previousLetter: string) => {
@@ -328,26 +339,30 @@ const getCurrentLetterWeights = (previousLetter: string) => {
     default:
       currentLetterWeights = lettersToFollowT;
       break;
-    // TODO: Maybe later add a small chance for using generic letters?
-    // default:
-    //   currentLetterWeights = lettersToFollowGeneric;
-    //   break;
+      // TODO: Maybe later add a small chance for using generic letters?
+      // default:
+      //   currentLetterWeights = lettersToFollowGeneric;
+      //   break;
   }
 
   return currentLetterWeights;
-}
+};
 
 const generateInitialLetter = () => {
-  const randomLetter = generateRandomLetterFromLetterWeights(initialFullLetterWeights);
+  const randomLetter = generateRandomLetterFromLetterWeights(
+    initialFullLetterWeights,
+  );
   return randomLetter.toUpperCase();
-}
+};
 
 const generateRandomLetter = (previousLetter: string) => {
-  const nextLetterWeights: IGenericFullWeights = getCurrentLetterWeights(previousLetter);
+  const nextLetterWeights: IGenericFullWeights = getCurrentLetterWeights(
+    previousLetter,
+  );
   const randomLetter = generateRandomLetterFromLetterWeights(nextLetterWeights);
 
   return randomLetter;
-}
+};
 
 const generateRandomName = () => {
   const nameLength = randomNumber({ min: 2, max: 10 });
@@ -355,7 +370,7 @@ const generateRandomName = () => {
 
   letters.push(generateInitialLetter());
   for (let i = 1; i < nameLength; i++) {
-    const previousLetter = letters[i-1];
+    const previousLetter = letters[i - 1];
     const randomLeter = generateRandomLetter(previousLetter);
     letters.push(randomLeter);
   }

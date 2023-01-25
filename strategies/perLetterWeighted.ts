@@ -83,24 +83,26 @@ const generateRandomVowel = (): string => {
   return randomLetter;
 };
 
-const generateRandomLetter = (nextLetterTypeWeights: IFullLetterTypeWeights) => {
-    const namedWeightedRange = generateWeightedRangeFromWeights(
-      nextLetterTypeWeights as unknown as IGenericFullWeights,
-    );
+const generateRandomLetter = (
+  nextLetterTypeWeights: IFullLetterTypeWeights,
+) => {
+  const namedWeightedRange = generateWeightedRangeFromWeights(
+    nextLetterTypeWeights as unknown as IGenericFullWeights,
+  );
 
-    let randomLetter: string;
-    switch (namedWeightedRange.name) {
-      case consonant:
-        randomLetter = generateRandomConsonant();
-        break;
+  let randomLetter: string;
+  switch (namedWeightedRange.name) {
+    case consonant:
+      randomLetter = generateRandomConsonant();
+      break;
 
-      default:
-        randomLetter = generateRandomVowel();
-        break;
-    }
+    default:
+      randomLetter = generateRandomVowel();
+      break;
+  }
 
-    return randomLetter;
-}
+  return randomLetter;
+};
 
 const generateRandomName = () => {
   const nameLength = randomNumber({ min: 2, max: 10 });
