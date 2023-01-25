@@ -311,7 +311,7 @@ console.info(typeof lettersToFollowGeneric);
 
 const getCurrentLetterWeights = (previousLetter: string) => {
   let currentLetterWeights;
-  switch (previousLetter) {
+  switch (previousLetter.toLocaleLowerCase()) {
     case 'a':
       currentLetterWeights = lettersToFollowA;
       break;
