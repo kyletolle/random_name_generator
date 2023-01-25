@@ -3,15 +3,15 @@ import { LetterTypes } from "../constants.ts";
 import type { ISimpleLetterTypeWeights, IFullLetterTypeWeights } from "../interfaces.ts";
 import { convertSimpleToFullLetterTypeWeightedRange, generateRandomEquallyWeightedLetterFromLetterTypeWeights } from "../weights/index.ts";
 
+const { consonant, vowel } = LetterTypes;
+
+const simpleLetterTypeEqualWeights : ISimpleLetterTypeWeights = {
+  [consonant]: 50,
+  [vowel]: 50,
+};
+const letterTypeWeightedEqually: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeEqualWeights);
+
 const generateRandomName = () => {
-  const { consonant, vowel } = LetterTypes;
-
-  const simpleLetterTypeEqualWeights : ISimpleLetterTypeWeights = {
-    [consonant]: 50,
-    [vowel]: 50,
-  };
-  const letterTypeWeightedEqually: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeEqualWeights);
-
   const nameLength = randomNumber({ min: 2, max: 10});
   const letters: string[] = [];
 
@@ -25,6 +25,5 @@ const generateRandomName = () => {
 
   return randomName;
 }
-
 
 export default generateRandomName;
