@@ -78,6 +78,12 @@ const getRandomEquallyWeightedLetterFromLetterType = (
 const convertSimpleLetterWeightsToGenericFullWeights = (
   simpleWeights: ISimpleLetterWeights,
 ): IGenericFullWeights => {
+  // Check that the weights all sum up to 100 exactly
+  const weightsSum = Object.keys(simpleWeights).map(letter => simpleWeights[letter]).reduce((accumulator, weightValue) => (accumulator + weightValue), 0)
+  if (weightsSum !== 100) {
+    throw new Error(`Simple Weights do not sum up to 100. Sum is ${weightsSum}: ${simpleWeights}`);
+  }
+
   const fullWeights: IGenericFullWeights = {};
 
   let lastLength = 0;
