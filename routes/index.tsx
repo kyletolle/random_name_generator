@@ -2,6 +2,7 @@ import { Head } from "$fresh/runtime.ts";
 import generateSimpleRandomName from "../strategies/simple.ts";
 import generateBasicWeightedRandomName from "../strategies/basicWeighted.ts";
 import generatePerLetterWeightedRandomName from "../strategies/perLetterWeighted.ts"
+import generateSimpleLookbackRandomName from "../strategies/simpleLookback.ts"
 
 const bigWord = "font-bold text(center 5xl black)";
 const sectionHeader = "font-bold text(left 2xl gray-500)";
@@ -26,6 +27,10 @@ export default function Home() {
 
         <h1 class={sectionHeader}>Per Letter Weighted Strategy</h1>
         <h2 class={bigWord}>{generatePerLetterWeightedRandomName()}</h2>
+        <hr class={separator} />
+
+        <h1 class={sectionHeader}>Simple Lookback Weighted Strategy</h1>
+        <h2 class={bigWord}>{generateSimpleLookbackRandomName()}</h2>
         <hr class={separator} />
       </div>
     </>
