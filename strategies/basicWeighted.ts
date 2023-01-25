@@ -3,29 +3,29 @@ import { vowels, LetterTypes } from "../constants.ts";
 import type { ISimpleLetterTypeWeights, IFullLetterTypeWeights } from "../interfaces.ts";
 import { convertSimpleToFullLetterTypeWeightedRange, generateRandomEquallyWeightedLetterFromLetterTypeWeights } from "../weights/index.ts";
 
+const { consonant, vowel } = LetterTypes;
+
+const simpleLetterTypeWeightedTowardConsonant: ISimpleLetterTypeWeights = {
+  [consonant]: 95,
+  [vowel]: 5,
+};
+const letterTypeWeightedTowardConsonant: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardConsonant);
+
+const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
+  [consonant]: 5,
+  [vowel]: 95,
+}
+const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
+
+const generateInitialLetterFromLetterType = () => {
+  const randomInitialLetter = generateRandomEquallyWeightedLetterFromLetterTypeWeights(letterTypeWeightedTowardConsonant).toUpperCase()
+  return randomInitialLetter;
+}
+
 const generateRandomName = () => {
-  const { consonant, vowel } = LetterTypes;
-
-  const simpleLetterTypeWeightedTowardConsonant: ISimpleLetterTypeWeights = {
-    [consonant]: 95,
-    [vowel]: 5,
-  };
-  const letterTypeWeightedTowardConsonant: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardConsonant);
-
-  const simpleLetterTypeWeightedTowardVowel: ISimpleLetterTypeWeights = {
-    [consonant]: 5,
-    [vowel]: 95,
-  }
-  const letterTypeWeightedTowardVowel: IFullLetterTypeWeights = convertSimpleToFullLetterTypeWeightedRange(simpleLetterTypeWeightedTowardVowel);
-
-  const getInitialLetterFromLetterType = () => {
-    const randomInitialLetter = generateRandomEquallyWeightedLetterFromLetterTypeWeights(letterTypeWeightedTowardConsonant).toUpperCase()
-    return randomInitialLetter;
-  }
-
   const nameLength = randomNumber({ min: 2, max: 10});
   const letters: string[] = [];
-  letters[0] = getInitialLetterFromLetterType();
+  letters[0] = generateInitialLetterFromLetterType();
   let nextLetterTypeWeights: IFullLetterTypeWeights = letterTypeWeightedTowardVowel;
   for(let i = 1; i < nameLength; i++) {
     const randomLetter = generateRandomEquallyWeightedLetterFromLetterTypeWeights(nextLetterTypeWeights);
